@@ -17,17 +17,16 @@ if !has("mac") || !executable("osascript")
 endif
 
 " message title
-if !exists('g:mac_notifi_title')
-  let g:mac_notify_title = "Vim"
-endif
+let s:mac_notify_title = exists('g:mac_notify_title') ? g:mac_notify_title : 'Vim'
 
 let s:save_cpo = &cpo
 set cpo&vim
 
 " main function
 function! s:mac_notify(say)
-  call vimproc#system("echo 'display notification "."\"".a:say."\" with title \"".g:mac_notify_title."\"' | osascript")
+  call vimproc#system("echo 'display notification "."\"".a:say."\" with title \"".s:mac_notify_title."\"' | osascript")
 endfunction
 command! -nargs=1 MacNotify call s:mac_notify(<q-args>)
+command! -nargs=1 MacNotifyExPand call s:mac_notify(<args>)
 
 let&cpo = s:save_cpo

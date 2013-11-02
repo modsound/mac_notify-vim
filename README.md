@@ -13,9 +13,10 @@ NeoBundle 'modsound/mac_notify-vim'
 
 ## Provided Command
 ```
-MacNotify 
+MacNotify [TEXT]
+MacNotifyExpand [VARIABLE]
 ```
-one argument required.
+one argument required.  
 
 ## Configuration
 You can change Notification title by a global variable below.
