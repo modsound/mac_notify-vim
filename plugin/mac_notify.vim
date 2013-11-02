@@ -27,6 +27,6 @@ function! s:mac_notify(say)
   call vimproc#system("echo 'display notification "."\"".a:say."\" with title \"".s:mac_notify_title."\"' | osascript")
 endfunction
 command! -nargs=1 MacNotify call s:mac_notify(<q-args>)
-command! -nargs=1 MacNotifyExPand call s:mac_notify(<args>)
+command! -nargs=1 MacNotifyExpand call s:mac_notify(<args>)
 
 let&cpo = s:save_cpo
