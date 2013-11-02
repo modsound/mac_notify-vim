@@ -1,17 +1,21 @@
-Mac Notify.vim
+MacNotify.vim
 ==============
+
 This plugin provides command 'MacNotify': enables to use Notification Center from Vim.
 
 ## Requirement
+
 * OS: Mac OSX 10.9 over(Tested with Mavericks)
 * VimPlugin: [vimproc](https://github.com/Shougo/vimproc.vim)
 
 ## Install
+
 ```
 NeoBundle 'modsound/mac_notify-vim'
 ```
 
 ## Provided Command
+
 ```
 MacNotify [TEXT]
 MacNotifyExpand [VARIABLE]
@@ -19,7 +23,24 @@ MacNotifyExpand [VARIABLE]
 one argument required.  
 
 ## Configuration
+
 You can change Notification title by a global variable below.
+
 ```
 let g:mac_notify_title = "Attention!"
+```
+
+## an Example of Utilication
+
+Let's write and exucute this function. You will get a weather forecast at Tokyo.
+
+```
+function! s:weather_report()
+  let g:weather = system("curl --silent http://weather.livedoor.com/forecast/rss/area/130010.xml
+  \ | grep '<description>'
+  \ | sed -e 's/<description>//g'
+  \ | sed -e 's@</description>@@g' | head -n 3 | tail -n 1")
+  exec "MacNotifyExpand g:weather"
+endfunction
+command! WeatherReport call s:weather_report()
 ```
