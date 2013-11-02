@@ -1,4 +1,4 @@
-Mac_Notify.vim
+Mac Notify.vim
 ==============
 This plugin provides command 'MacNotify': enables to use Notification Center from Vim.
 
@@ -18,7 +18,7 @@ MacNotify
 one argument required.
 
 ## Configuration
-You can change Notification Sender's name by a global variable below.
+You can change Notification title by a global variable below.
 ```
-let g:mac_who_notify = "Vim Girl"
+let g:mac_notify_title = "Attention!"
 ```
