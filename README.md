@@ -30,9 +30,9 @@ You can change Notification title by a global variable below.
 let g:mac_notify_title = "Attention!"
 ```
 
-## an Example of Utilication
+## an Example of Utilization
 
-Let's write and exucute this function. You will get a weather forecast at Tokyo.
+Let's write and exucute this function. You will get a weather forecast for Tokyo.
 
 ```
 function! s:weather_report()
