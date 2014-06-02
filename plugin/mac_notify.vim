@@ -25,6 +25,10 @@ set cpo&vim
 " main function
 function! s:mac_notify(say)
   call vimproc#system("echo 'display notification "."\"".a:say."\" with title \"".s:mac_notify_title."\"' | osascript")
+  " coordination with shaberu.vim
+  if exists("g:loaded_shaberu") && exists("g:mac_notify_speech_via_shaberu")
+      call shaberu#say(a:say)
+  endif
 endfunction
 command! -nargs=1 MacNotify call s:mac_notify(<q-args>)
 command! -nargs=1 MacNotifyExpand call s:mac_notify(<args>)

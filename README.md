@@ -30,17 +30,23 @@ You can change Notification title by a global variable below.
 let g:mac_notify_title = "Attention!"
 ```
 
+If you have installed shaberu.vim, You can coordinate with it.
+
+```
+let g:mac_notify_speak_with_shaberu = 1
+```
+
 ## an Example of Utilization
 
 Let's write and exucute this function. You will get a weather forecast for Tokyo.
 
 ```
 function! s:weather_report()
-  let g:weather = system("curl --silent http://weather.livedoor.com/forecast/rss/area/130010.xml
+  let l:weather = system("curl --silent http://weather.livedoor.com/forecast/rss/area/130010.xml
   \ | grep '<description>'
   \ | sed -e 's/<description>//g'
   \ | sed -e 's@</description>@@g' | head -n 3 | tail -n 1")
-  exec "MacNotifyExpand g:weather"
+  exec "MacNotifyExpand l:weather"
 endfunction
 command! WeatherReport call s:weather_report()
 ```
