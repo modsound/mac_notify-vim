@@ -34,17 +34,27 @@ command! -nargs=1 MacNotify call s:mac_notify(<q-args>)
 command! -nargs=1 MacNotifyExpand call s:mac_notify(<args>)
 " }}}
 
-" 動作停止よりx分経過しました {{{
+" 動作停止からx分経過しました {{{
 if exists("g:enable_mac_notify_timer")
+  " initialize var
   let s:downtime = 0
-  let &updatetime = 60000
+
+  " select time to notify
+  if g:enable_mac_notify_timer == 5
+    let &updatetime = 300000
+  elseif g:enable_mac_notify_timer == 10
+    let &updatetime = 600000
+  else
+    let &updatetime = 60000
+  endif
 
   " count up timer
   function! s:holding_time_event()
-    let s:downtime += 1
+    " count up
+    let s:downtime += g:enable_mac_notify_timer
     "[todo] 英語環境では英語のテキストを表示
     "[todo] 「進捗どうです？」を指定できるようにする
-    let l:say = "動作停止より".s:downtime ."分経過しました。"
+    let l:say = "動作停止から".s:downtime."分経過しました。"
     exec "MacNotifyExpand l:say"
     " event repeat
     call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
@@ -62,8 +72,9 @@ if exists("g:enable_mac_notify_timer")
   " execute automatically
   augroup holding_time_event
     autocmd!
-    autocmd! CursorMoved,CursorMovedI * ClearHoldingTime
+    "[todo] 一度カーソルを動かさないと関数がオンにならない
     autocmd CursorHold,CursorHoldI * NotifyHoldingTime
+    autocmd CursorMoved,CursorMovedI * ClearHoldingTime
   augroup END
 endif
 " }}}
