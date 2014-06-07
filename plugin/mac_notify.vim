@@ -17,7 +17,7 @@ if !has("mac") || !executable("osascript")
 endif
 
 " set message title
-let s:mac_notify_title = exists('g:mac_notify_title') ? g:mac_notify_title : 'Vim'
+let s:mac_notify_title = exists('g:mac_notify_title') ? g:mac_notify_title : "Vim - ".expand("%")
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -34,27 +34,35 @@ command! -nargs=1 MacNotify call s:mac_notify(<q-args>)
 command! -nargs=1 MacNotifyExpand call s:mac_notify(<args>)
 " }}}
 
-" 動作停止からx分経過しました {{{
-if exists("g:enable_mac_notify_timer")
+" mac_nofity_timer {{{
+if exists("g:mac_notify_timer")
   " initialize var
   let s:downtime = 0
 
   " select time to notify
-  if g:enable_mac_notify_timer == 5
+  if g:mac_notify_timer == 5
     let &updatetime = 300000
-  elseif g:enable_mac_notify_timer == 10
+  elseif g:mac_notify_timer == 10
     let &updatetime = 600000
   else
+    let g:mac_notify_timer = 1
     let &updatetime = 60000
+    " for test 
+    " let &updatetime = 6000
   endif
 
   " count up timer
   function! s:holding_time_event()
     " count up
-    let s:downtime += g:enable_mac_notify_timer
-    "[todo] 英語環境では英語のテキストを表示
-    "[todo] 「進捗どうです？」を指定できるようにする
-    let l:say = "動作停止から".s:downtime."分経過しました。"
+    let s:downtime += g:mac_notify_timer
+    " set timer limit -> default 30
+    let g:mac_notify_timer_limit = exists('g:mac_notify_timer_limit') ? g:mac_notify_timer_limit : 30
+    if s:downtime >= g:mac_notify_timer_limit
+      "[todo] 英語環境では英語のテキストを表示
+      let l:say = "進捗どうです？"
+    else
+      let l:say = "動作停止から".s:downtime."分経過しました。"
+    endif
     exec "MacNotifyExpand l:say"
     " event repeat
     call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
