@@ -8,7 +8,7 @@ This plugin provides command 'MacNotify': enables to use Notification Center fro
 * OS: Mac OSX 10.9 over(Tested with Mavericks)
 * VimPlugin: [vimproc](https://github.com/Shougo/vimproc.vim)
 
-## Install
+## Installation
 
 ```
 NeoBundle 'modsound/mac_notify-vim'
@@ -22,23 +22,23 @@ MacNotifyExpand [VARIABLE]
 ```
 one argument required.  
 
-## Configuration
+### Configuration
 
-You can change Notification title by a global variable below.
+* You can change Notification title by a global variable below.
 
 ```
 let g:mac_notify_title = "Attention!"
 ```
 
-If you have installed shaberu.vim, You can coordinate with it.
+* If you have installed shaberu.vim, You can coordinate with it.
 
 ```
 let g:mac_notify_speak_with_shaberu = 1
 ```
 
-## an Example of Utilization
+### an Example of Utilization
 
-Let's write and exucute this function. You will get a weather forecast for Tokyo.
+Let's write and exucute this function in your vimrc. You will get a weather forecast for Tokyo.
 
 ```
 function! s:weather_report()
@@ -50,3 +50,19 @@ function! s:weather_report()
 endfunction
 command! WeatherReport call s:weather_report()
 ```
+
+## Timer Notification
+
+You can get the notification when the specified time has passed.   
+Let's add the following variables to your vimrc.
+
+```
+let g:mac_notify_timer = 1  
+let g:mac_notify_timer_limit = 30
+```
+
+* "g:mac_notify_timer": enables Timer Notification.  
+Set 1 or 3 or 5 or 10(minutes). Otherwise default value is 1.  
+The above setting means that one minute after you stop operating Vim, You are notified.
+
+* "g:mac_notify_timer_limit": If elapsed time since you stopped operating Vim exceeded this value, Notification message will change.
