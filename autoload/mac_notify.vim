@@ -24,7 +24,7 @@ endfunction
   " set timer pattern {{{
   function! mac_notify#s:init_mac_notify_timer()
     " initialize var
-    let s:downtime = 0
+    let s:mac_notify_downtime = 0
     if g:mac_notify_timer == 3
       let &updatetime = 180000
     elseif g:mac_notify_timer == 5
@@ -41,18 +41,17 @@ endfunction
   " do notification {{{
   function! mac_notify#s:holding_time_event()
     " count up
-    let s:downtime += g:mac_notify_timer
+    let s:mac_notify_downtime += g:mac_notify_timer
     " set timer limit
     if exists('g:mac_notify_timer_limit')
-      if s:downtime >= g:mac_notify_timer_limit
+      if s:mac_notify_downtime >= g:mac_notify_timer_limit
         " [todo] 英文メッセージも提供したい
-        " [todo] メッセージは自分でも指定できた方がいい
-        let l:say = "進捗どうです？"
+        let l:say = exists("g:mac_notify_limit_message") ? g:mac_notify_limit_message : "進捗どうです？"
       else
-        let l:say = "動作停止から".s:downtime."分経過しました。"
+        let l:say = exists("g:mac_notify_message") ? g:mac_notify_message : "動作停止から".s:mac_notify_downtime."分経過しました。"
       endif
     else
-        let l:say = "動作停止から".s:downtime."分経過しました。"
+        let l:say = exists("g:mac_notify_message") ? g:mac_notify_message : "動作停止から".g:mac_notify_downtime."分経過しました。"
     endif
     exec "MacNotifyExpand l:say"
     " event repeat
@@ -62,7 +61,7 @@ endfunction
   
   " reset count up {{{
   function! mac_notify#s:moving_time_event()
-    let s:downtime = 0
+    let s:mac_notify_downtime = 0
   endfunction
   " }}}
   

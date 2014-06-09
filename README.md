@@ -66,3 +66,10 @@ Set 1 or 3 or 5 or 10(minutes). Otherwise default value is 1.
 The above setting means that one minute after you stop operating Vim, You are notified.
 
 * "g:mac_notify_timer_limit": If elapsed time since you stopped operating Vim exceeded this value, Notification message will change.
+
+You can change message by following variables.
+
+```
+g:mac_notify_message  
+g:mac_notify_limit_message
+```
