@@ -11,11 +11,11 @@ set cpo&vim
 function! mac_notify#mac_notify(say)
   " set message title
   let l:mac_notify_title = exists('g:mac_notify_title') ? g:mac_notify_title : "[Vim] ".expand("%")
-  " if not mac or executable osascript
+  " if not (mac or executable osascript)
   if exists("g:notloaded_mac_notify")
     echo l:mac_notify_title . ": " . a:say
   else
-    call vimproc#system("echo 'display notification "."\"".a:say."\" with title \"".l:mac_notify_title."\"' | osascript")
+    call system("echo 'display notification "."\"".a:say."\" with title \"".l:mac_notify_title."\"' | osascript")
   endif
   " coordination with shaberu.vim
   if exists("g:loaded_shaberu") && exists("g:mac_notify_speak_with_shaberu")
@@ -51,12 +51,15 @@ endfunction
     if exists('g:mac_notify_timer_limit')
       if s:mac_notify_downtime >= g:mac_notify_timer_limit
         " [todo] downtimeもユーザーがメッセージで指定できるように
-        let l:say = exists("g:mac_notify_limit_message") ? g:mac_notify_limit_message : "進捗どうです？"
+        let l:say = exists("g:mac_notify_limit_message") ?
+              \ g:mac_notify_limit_message : "進捗どうです？"
       else
-        let l:say = exists("g:mac_notify_message") ? g:mac_notify_message : "動作停止から".s:mac_notify_downtime."分経過しました。"
+        let l:say = exists("g:mac_notify_message") ?
+              \ g:mac_notify_message : "動作停止から".s:mac_notify_downtime."分経過しました。"
       endif
     else
-        let l:say = exists("g:mac_notify_message") ? g:mac_notify_message : "動作停止から".g:mac_notify_downtime."分経過しました。"
+        let l:say = exists("g:mac_notify_message") ?
+              \ g:mac_notify_message : "動作停止から".g:mac_notify_downtime."分経過しました。"
     endif
     exec "MacNotifyExpand l:say"
     " event repeat

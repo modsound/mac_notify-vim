@@ -6,7 +6,6 @@ This plugin provides command 'MacNotify': enables to use Notification Center fro
 ## Requirement
 
 * OS: Mac OSX 10.9 over(Tested with Mavericks)
-* VimPlugin: [vimproc](https://github.com/Shougo/vimproc.vim)
 
 ## Installation
 
