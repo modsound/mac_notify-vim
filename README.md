@@ -53,6 +53,8 @@ command! WeatherReport call s:weather_report()
 
 ## Timer Notification
 
+Attention! This function uses &updatetime. 
+
 You can get the notification when the specified time has passed.   
 Let's add the following variables to your vimrc.
 
@@ -63,7 +65,7 @@ let g:mac_notify_timer_limit = 30
 
 * "g:mac_notify_timer": enables Timer Notification.  
 Set 1 or 3 or 5 or 10(minutes). Otherwise default value is 1.  
-The above setting means that one minute after you stop operating Vim, You are notified.
+The above setting means that one minute after you stop operating Vim, You will be notified.
 
 * "g:mac_notify_timer_limit": If elapsed time since you stopped operating Vim exceeded this value, Notification message will change.
 

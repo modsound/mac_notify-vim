@@ -13,8 +13,7 @@ let g:loaded_mac_notify = 1
 
 " check user environment {{{
 if !has("mac") || !executable("osascript")
-  echom "mac_nofity.vim is only for Mac OSX User"
-  finish
+  let g:notloaded_mac_notify = 1
 endif
 " }}}
 
