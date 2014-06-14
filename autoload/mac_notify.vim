@@ -8,7 +8,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 " mac_notify {{{
-function! mac_notify#s:mac_notify(say)
+function! mac_notify#mac_notify(say)
   " set message title
   let l:mac_notify_title = exists('g:mac_notify_title') ? g:mac_notify_title : "[Vim] ".expand("%")
   " if not mac or executable osascript
@@ -27,7 +27,7 @@ endfunction
 
 " mac_nofity_timer {{{
   " set timer pattern {{{
-  function! mac_notify#s:init_mac_notify_timer()
+  function! mac_notify#init_mac_notify_timer()
     " initialize var
     let s:mac_notify_downtime = 0
     if g:mac_notify_timer == 3
@@ -38,14 +38,13 @@ endfunction
       let &updatetime = (60000 * 10)
     else
       let g:mac_notify_timer = 1
-      " let &updatetime = 5000
       let &updatetime = 60000
     endif
   endfunction
   " }}}
   
   " do notification {{{
-  function! mac_notify#s:holding_time_event()
+  function! mac_notify#holding_time_event()
     " count up
     let s:mac_notify_downtime += g:mac_notify_timer
     " set timer limit
@@ -66,7 +65,7 @@ endfunction
   " }}}
   
   " reset count up {{{
-  function! mac_notify#s:moving_time_event()
+  function! mac_notify#moving_time_event()
     let s:mac_notify_downtime = 0
   endfunction
   " }}}
